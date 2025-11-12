@@ -74,9 +74,8 @@
                     <!-- FormSubmit Configuration -->
                     <input type="hidden" name="_subject" value="Nuevo mensaje desde el formulario de contacto">
                     <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="box">
-                    <input type="hidden" name="_next" value="https://bykaizenes.github.io/contacto/gracias.html">
-                    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="text" name="_honey" style="display:none">
 
                     <!-- Name Field -->
                     <div class="form-group">
@@ -89,9 +88,6 @@
                             required
                             minlength="2"
                             maxlength="100"
-                            autocomplete="name"
-                            pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+"
-                            title="Solo se permiten letras y espacios"
                         >
                     </div>
 
@@ -104,9 +100,6 @@
                             name="email" 
                             placeholder="tu@email.com"
                             required
-                            autocomplete="email"
-                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                            title="Introduce un correo electrónico válido"
                         >
                     </div>
 
@@ -132,7 +125,6 @@
                             required
                             minlength="5"
                             maxlength="150"
-                            autocomplete="off"
                         >
                     </div>
 
@@ -147,34 +139,23 @@
                             required
                             minlength="10"
                             maxlength="2000"
-                            autocomplete="off"
                         ></textarea>
                         <span class="char-counter">0 / 2000 caracteres</span>
                     </div>
 
-                    <!-- Privacy Policy Checkbox -->
-                    <div class="form-group">
-                        <label class="checkbox-container">
-                            <input 
-                                type="checkbox" 
-                                id="privacy" 
-                                name="privacy" 
-                                required
-                            >
-                            <span class="checkbox-text">
-                                Acepto la <a href="privacidad.html" target="_blank" class="privacy-link">Política de Privacidad</a> y consiento el tratamiento de mis datos para soporte técnico *
-                            </span>
-                        </label>
-                    </div>
-
                     <!-- Submit Button -->
-                    <button type="submit" class="btn btn-submit" id="submitBtn">
+                    <button type="submit" class="btn btn-submit">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="22" y1="2" x2="11" y2="13"></line>
                             <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                         </svg>
                         Enviar mensaje
                     </button>
+
+                    <p class="privacy-notice">
+                        Al enviar este formulario, aceptas nuestra 
+                        <a href="privacidad.html" target="_blank">Política de Privacidad</a>
+                    </p>
                 </form>
             </div>
 
@@ -229,9 +210,6 @@
             <div class="footer-content">
                 <img src="icon.png" alt="ByKaizenES Icon" width="120" height="120" class="footer-icon">
                 <p>© 2025 ByKaizenES. Todos los derechos reservados.</p>
-                <p class="footer-links">
-                    <a href="privacidad.html" class="footer-link">Política de Privacidad</a>
-                </p>
             </div>
         </div>
     </footer>

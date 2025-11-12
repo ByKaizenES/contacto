@@ -8,5 +8,5 @@ Esta página utiliza FormSubmit para gestionar el envío de mensajes sin necesid
 
 ---
 
-**Creado por ByKaizenES**
+**Creado con ❤️ por ByKaizenES**
 

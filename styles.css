@@ -301,42 +301,6 @@ body {
     text-align: right;
 }
 
-/* Checkbox styling */
-.checkbox-container {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    cursor: pointer;
-    user-select: none;
-}
-
-.checkbox-container input[type="checkbox"] {
-    width: auto;
-    min-width: 20px;
-    height: 20px;
-    margin-top: 2px;
-    cursor: pointer;
-    accent-color: #667eea;
-}
-
-.checkbox-text {
-    color: var(--text-color);
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
-
-.privacy-link {
-    color: #667eea;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-.privacy-link:hover {
-    color: #764ba2;
-    text-decoration: underline;
-}
-
 /* ========================================
    BUTTONS
    ======================================== */
@@ -374,6 +338,26 @@ body {
 
 .btn-submit:active {
     transform: translateY(0);
+}
+
+.privacy-notice {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-light);
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+}
+
+.privacy-notice a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.privacy-notice a:hover {
+    color: #764ba2;
+    text-decoration: underline;
 }
 
 .btn-primary {
@@ -673,22 +657,6 @@ body {
     font-size: 0.95rem;
 }
 
-.footer-links {
-    margin-top: 0.5rem !important;
-}
-
-.footer-link {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-}
-
-.footer-link:hover {
-    color: white;
-    text-decoration: underline;
-}
-
 /* ========================================
    ANIMATIONS
    ======================================== */
@@ -803,4 +771,99 @@ select:focus {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
+}
+
+/* ========================================
+   PRIVACY POLICY PAGE
+   ======================================== */
+
+.privacy-content {
+    padding: 4rem 2rem;
+}
+
+.content-wrapper {
+    background: white;
+    padding: 3rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.last-updated {
+    text-align: center;
+    color: var(--text-light);
+    font-style: italic;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.privacy-section {
+    margin-bottom: 3rem;
+}
+
+.privacy-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.privacy-section h2::before {
+    content: '';
+    width: 4px;
+    height: 1.75rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+}
+
+.privacy-section p {
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.privacy-section ul {
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.privacy-section li {
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: 0.75rem;
+}
+
+.privacy-section strong {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.privacy-section a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.privacy-section a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+.privacy-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--border-color);
+    text-align: center;
+}
+
+.privacy-footer p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
 }

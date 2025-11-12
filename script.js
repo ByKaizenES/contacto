@@ -1,22 +1,5 @@
 // Character counter for message textarea
 document.addEventListener('DOMContentLoaded', function() {
-    // Generate timestamp for security
-    const timestamp = Date.now();
-    const formTimestamp = document.getElementById('formTimestamp');
-    if (formTimestamp) {
-        formTimestamp.value = timestamp;
-    }
-    
-    // Disable right-click on form to prevent inspection
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            return false;
-        });
-    }
-    
-    // Character counter
     const messageTextarea = document.getElementById('message');
     const charCounter = document.querySelector('.char-counter');
     
@@ -36,71 +19,69 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    // Input sanitization
-    const textInputs = document.querySelectorAll('input[type="text"], input[type="email"], textarea');
-    textInputs.forEach(input => {
-        input.addEventListener('blur', function() {
-            // Remove potential XSS attempts
-            this.value = sanitizeInput(this.value);
-        });
-    });
 });
-
-// Sanitize input to prevent XSS
-function sanitizeInput(str) {
-    const temp = document.createElement('div');
-    temp.textContent = str;
-    return temp.innerHTML
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#x27;')
-        .replace(/\//g, '&#x2F;');
-}
-
-// Validate email format
-function isValidEmail(email) {
-    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
-    return emailRegex.test(email);
-}
-
-// Check for suspicious patterns
-function containsSuspiciousContent(text) {
-    const suspiciousPatterns = [
-        /<script/i,
-        /javascript:/i,
-        /on\w+\s*=/i,
-        /<iframe/i,
-        /eval\(/i,
-        /document\./i,
-        /window\./i
-    ];
-    
-    return suspiciousPatterns.some(pattern => pattern.test(text));
-}
 
 // Form validation and submission
 const contactForm = document.getElementById('contactForm');
+const successMessage = document.getElementById('successMessage');
 
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
-        const privacyChecked = document.getElementById('privacy').checked;
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const project = document.getElementById('project').value;
+        const subject = document.getElementById('subject').value.trim();
+        const message = document.getElementById('message').value.trim();
         
-        // Check privacy checkbox
-        if (!privacyChecked) {
+        // Basic validation (HTML5 already handles most of it)
+        if (!name || !email || !project || !subject || !message) {
             e.preventDefault();
-            alert('Debes aceptar la Política de Privacidad para continuar.');
+            alert('Por favor, completa todos los campos requeridos.');
+            return false;
+        }
+        
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            e.preventDefault();
+            alert('Por favor, introduce una dirección de email válida.');
             return false;
         }
         
         // Show loading state
-        const submitButton = document.getElementById('submitBtn');
+        const submitButton = this.querySelector('.btn-submit');
+        const originalText = submitButton.innerHTML;
         submitButton.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg> Enviando...';
         submitButton.disabled = true;
         
-        // Let the form submit naturally to FormSubmit
-        return true;
+        // Note: The form will actually submit to FormSubmit
+        // Since we can't prevent the redirect, we'll use a workaround
+        // by submitting via AJAX instead
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            // Show success message
+            contactForm.style.display = 'none';
+            successMessage.style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        })
+        .catch(error => {
+            // If fetch fails, fall back to normal form submission
+            submitButton.innerHTML = originalText;
+            submitButton.disabled = false;
+            this.submit();
+        });
     });
 }
 
