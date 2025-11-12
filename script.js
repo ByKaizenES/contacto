@@ -82,15 +82,9 @@ function containsSuspiciousContent(text) {
 
 // Form validation and submission
 const contactForm = document.getElementById('contactForm');
-const successMessage = document.getElementById('successMessage');
 
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const project = document.getElementById('project').value;
-        const subject = document.getElementById('subject').value.trim();
-        const message = document.getElementById('message').value.trim();
         const privacyChecked = document.getElementById('privacy').checked;
         
         // Check privacy checkbox
@@ -99,68 +93,6 @@ if (contactForm) {
             alert('Debes aceptar la Política de Privacidad para continuar.');
             return false;
         }
-        
-        // Sanitize all inputs
-        const sanitizedName = sanitizeInput(name);
-        const sanitizedEmail = sanitizeInput(email);
-        const sanitizedSubject = sanitizeInput(subject);
-        const sanitizedMessage = sanitizeInput(message);
-        
-        // Basic validation
-        if (!sanitizedName || !sanitizedEmail || !project || !sanitizedSubject || !sanitizedMessage) {
-            e.preventDefault();
-            alert('Por favor, completa todos los campos requeridos.');
-            return false;
-        }
-        
-        // Email validation
-        if (!isValidEmail(sanitizedEmail)) {
-            e.preventDefault();
-            alert('Por favor, introduce una dirección de email válida.');
-            return false;
-        }
-        
-        // Check for suspicious content
-        const allContent = sanitizedName + sanitizedEmail + sanitizedSubject + sanitizedMessage;
-        if (containsSuspiciousContent(allContent)) {
-            e.preventDefault();
-            alert('Se ha detectado contenido no permitido en el formulario.');
-            return false;
-        }
-        
-        // Length validation
-        if (sanitizedName.length < 2 || sanitizedName.length > 100) {
-            e.preventDefault();
-            alert('El nombre debe tener entre 2 y 100 caracteres.');
-            return false;
-        }
-        
-        if (sanitizedSubject.length < 5 || sanitizedSubject.length > 150) {
-            e.preventDefault();
-            alert('El asunto debe tener entre 5 y 150 caracteres.');
-            return false;
-        }
-        
-        if (sanitizedMessage.length < 10 || sanitizedMessage.length > 2000) {
-            e.preventDefault();
-            alert('El mensaje debe tener entre 10 y 2000 caracteres.');
-            return false;
-        }
-        
-        // Check honeypot
-        const honeypot = document.querySelector('input[name="_honey"]');
-        if (honeypot && honeypot.value !== '') {
-            // Bot detected, fail silently
-            e.preventDefault();
-            console.log('Bot detected');
-            return false;
-        }
-        
-        // Update form with sanitized values
-        document.getElementById('name').value = sanitizedName;
-        document.getElementById('email').value = sanitizedEmail;
-        document.getElementById('subject').value = sanitizedSubject;
-        document.getElementById('message').value = sanitizedMessage;
         
         // Show loading state
         const submitButton = document.getElementById('submitBtn');
